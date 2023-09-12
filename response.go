@@ -14,6 +14,7 @@ func responseWithError(w http.ResponseWriter, code int, msg string) {
 	type ErrorResponse struct {
 		Error string `json:"error"`
 	}
+
 	respondWithJSON(w, code, ErrorResponse{Error: msg})
 }
 
@@ -24,7 +25,10 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
 	w.Header().Add("Content-Type", "application/json")
+
 	w.WriteHeader(code)
+
 	w.Write(data)
 }
